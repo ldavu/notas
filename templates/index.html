@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Salvar Texto</title>
+</head>
+<body>
+    <h1>Salvar Texto</h1>
+    <form action="{{ url_for('save') }}" method="post">
+        <textarea name="text" rows="5" cols="50"></textarea><br>
+        <input type="submit" value="Salvar">
+    </form>
+    <h2>Textos Salvos:</h2>
+    <ul>
+        {% for text in texts %}
+            <li>{{ text }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
