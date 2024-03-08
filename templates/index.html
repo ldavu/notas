@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif; /* Fonte padrão */
-            background-color: #f2f2f2;
+            background-color: #1a1a1a;
             margin: 0;
             padding: 0;
             display: flex;
@@ -20,7 +20,7 @@
             width: 80%;
             max-width: 800px;
             padding: 20px;
-            background-color: #fff;
+            background-color: #d6d6d6;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
@@ -57,14 +57,39 @@
         #saveBtn:hover {
             background-color: #0056b3;
         }
+
+        /* Estilos para a caixa de mensagem */
+        #message {
+            display: none; /* Oculta a caixa de mensagem inicialmente */
+            background-color: #d4edda; /* Cor de fundo verde */
+            color: #155724; /* Cor do texto */
+            padding: 10px; /* Espaçamento interno */
+            border-radius: 5px; /* Cantos arredondados */
+            margin-bottom: 10px; /* Espaço inferior */
+        }
+
+
+        .header {
+            background-color: #007bff; /* Cor de fundo azul */
+            color: #fff; /* Cor do texto branco */
+            text-align: center; /* Alinhamento do texto ao centro */
+            padding: 20px 0; /* Espaçamento interno superior e inferior */
+        }
+        
+        
+
     </style>
 </head>
 <body>
+
+
     <div class="container">
         <h1>Bloco de Notas Virtual</h1>
+        <div id="message"></div>
         <pre id="editor" contenteditable="true">{{ shared_text }}</pre>
         <button id="saveBtn">Salvar</button>
     </div>
+
 
     <script>
         document.getElementById('saveBtn').addEventListener('click', function() {
@@ -78,16 +103,33 @@
             })
             .then(response => {
                 if (response.ok) {
-                    alert('Texto salvo com sucesso!');
+                    // Se a resposta for bem-sucedida, mostrar a mensagem no elemento 'message'
+                    document.getElementById('message').style.display = 'block'; // Mostra a caixa de mensagem
+                    document.getElementById('message').innerHTML = '<p>Texto salvo com sucesso!</p>';
                 } else {
-                    alert('Erro ao salvar texto.');
+                    // Se houver um erro na resposta, mostrar uma mensagem de erro
+                    document.getElementById('message').style.display = 'block'; // Mostra a caixa de mensagem
+                    document.getElementById('message').innerHTML = '<p>Erro ao salvar texto.</p>';
                 }
+    
+                // Definindo um atraso de 5 segundos para ocultar a caixa de mensagem
+                setTimeout(function() {
+                    document.getElementById('message').style.display = 'none'; // Oculta a caixa de mensagem
+                }, 5000); // 5000 milissegundos = 5 segundos
             })
             .catch(error => {
+                // Se houver um erro na requisição, mostrar uma mensagem de erro
                 console.error('Erro ao salvar texto:', error);
-                alert('Erro ao salvar texto.');
+                document.getElementById('message').style.display = 'block'; // Mostra a caixa de mensagem
+                document.getElementById('message').innerHTML = '<p>Erro ao salvar texto.</p>';
+    
+                // Definindo um atraso de 5 segundos para ocultar a caixa de mensagem
+                setTimeout(function() {
+                    document.getElementById('message').style.display = 'none'; // Oculta a caixa de mensagem
+                }, 5000); // 5000 milissegundos = 5 segundos
             });
         });
     </script>
+    
 </body>
 </html>

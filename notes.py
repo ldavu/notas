@@ -1,4 +1,16 @@
-from flask import request, jsonify, render_template
+from flask import request, jsonify, render_template, url_for, redirect, session
+
+
+
+
+def index1():
+    # Verifica se a sessão login está definida como False
+    if session.get("login") == False:
+        return redirect(url_for("login"))  # Redireciona para a página de login
+    
+    return render_template('index.html')
+
+
 
 # Função para carregar os textos salvos de um arquivo
 def load_texts():
@@ -26,3 +38,4 @@ def save():
     except Exception as e:
         print(e)
         return jsonify(success=False)
+

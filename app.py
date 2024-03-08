@@ -4,6 +4,10 @@ from notes import index, save
 
 app = Flask(__name__)
 
+app.secret_key = "LGBSBGKYW#TBRjGJKgkejhrg"
+
+
+
 # Rotas para login
 app.add_url_rule('/', 'login', login, methods=['GET', 'POST'])
 
