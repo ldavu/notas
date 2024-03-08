@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário de Login</title>
+<link rel="shortcut icon" href="img\login_icon_151220.png" type="image/x-icon">
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        height: 100vh; /* Define a altura total da janela de visualização */
+        display: flex;
+        justify-content: center; /* Centraliza horizontalmente */
+        align-items: center; /* Centraliza verticalmente */
+        font-family: Arial, sans-serif;
+        background-image: url('https://images3.alphacoders.com/134/1348349.png');
+        background-size: cover;
+    }
+    .container {
+        width: 300px;
+        padding: 20px;
+        background-color: #ccb07d;
+        border-radius: 5px;
+        box-shadow: 0px 0px 50px 40px rgba(0,0,0,0.1);
+        height: 0; /* Define a altura como 0 para tornar a .container invisível */
+        overflow: hidden; /* Oculta qualquer conteúdo que ultrapasse a altura definida */
+    }
+    .container.active {
+        height: auto; /* Define a altura de volta para 'auto' para tornar a .container visível */
+    }
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        width: 100%;
+        background-color: #4caf50;
+        color: #000000;
+        padding: 10px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+
+<div class="container active"> <!-- Adicionado a classe "active" para tornar a .container visível -->
+    <h2>Login</h2>
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form action="#" method="post">
+        <label for="username">Usuário:</label>
+        <input type="text" id="username" name="username" required>
+        <br><br>
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required>
+        <br><br>
+        <input type="submit" value="Login">
+    </form>
+</div>
+</body>
+</html>
