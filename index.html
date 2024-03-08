@@ -5,48 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloco de Notas</title>
     <link rel="stylesheet" href="styles.css">
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 0;
-    }
     
-    .container {
-        width: 80%;
-        margin: 50px auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    
-    textarea {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
-    
-    button {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    
-    button:hover {
-        background-color: #0056b3;
-    }
-    
-</style>
-
-
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+    </style>
 </head>
 <body>
     <div class="container">
@@ -55,7 +53,44 @@
         <button onclick="salvarNota()">Salvar</button>
     </div>
 
-    <script src="script.js"></script>
-    
+    <script>
+        function salvarNota() {
+            var nota = document.getElementById("noteText").value;
+            fetch('/salvar-nota', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nota: nota })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao salvar a nota.');
+                }
+                alert("Nota salva com sucesso no servidor!");
+            })
+            .catch(error => {
+                console.error(error);
+                alert("Erro ao salvar a nota no servidor.");
+            });
+        }
+        
+        window.onload = function() {
+            fetch('/recuperar-nota')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao recuperar a nota.');
+                }
+                return response.text();
+            })
+            .then(nota => {
+                document.getElementById("noteText").value = nota;
+            })
+            .catch(error => {
+                console.error(error);
+                alert("Erro ao recuperar a nota do servidor.");
+            });
+        }
+    </script>
 </body>
 </html>
